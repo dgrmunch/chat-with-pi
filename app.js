@@ -4,8 +4,7 @@ var express = require('express'),
     io = require("socket.io").listen(server),
     nicknames = {};
 
-//server.listen(8000);
-server.listen(process.env.PORT, process.env.IP);
+server.listen(8000);
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/index.html');
 });
