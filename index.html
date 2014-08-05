@@ -10,14 +10,19 @@
             #chatWrap{
                 float: left;
             }
-            #chat{
-                position: relative;
-                width: 100%;
-                float:left;
-                min-height:100px;
-                height: 90%;
-                overflow: auto;
-            }
+			#chat {
+			    position: relative;
+			    width: 100%;
+			    float: left;
+			    min-height: 100px;
+			    height: 80%;
+			    overflow: auto;
+			    margin-bottom: 2%;
+			}
+			#message-box{
+				float: right;
+				width: 100%;
+			}
         </style>
         
         <script src="https://code.jquery.com/jquery.js"></script>
@@ -56,26 +61,19 @@
                 <div id="chatWrap"  class="col-md-6">
                     <div class="panel panel-success">
                         <div class="panel-heading">Chat</div>
-                        <div id="chat" class="panel-body"></div>
+						<div class="panel-body">
+	                        <div id="chat"></div>
+		                    <div id="message-box">
+		                        <form id="send-message" class="input-group" style="text-align:center;margin:0 auto;">
+		                        <input id="message" class="form-control input-lg" type="text">
+		                        <span class="input-group-btn">
+		                            <button class="btn btn-lg btn-primary" type="submit">Send</button>
+		                        </span>
+		                        </form>
+		                    </div>
+						</div>	
                     </div>
-                    
-                    <div>
-                        <form id="send-message" class="input-group" style="text-align:center;margin:0 auto;">
-                        <input id="message" class="form-control input-lg" type="text">
-                        <span class="input-group-btn">
-                            <button class="btn btn-lg btn-primary" type="submit">Send</button>
-                        </span>
-                        </form>
-                    </div>
-                    
-                    <!--
-                        <input size="35" id="message"></input>
-                        <input type="submit"></input>
-                    </form>-->
                 </div>
-                
-                
-                
                 <div class="col-md-2">
                     <div class="panel panel-info">
                         <div class="panel-heading">
