@@ -23,6 +23,13 @@
 				float: right;
 				width: 100%;
 			}
+			.page-header{
+				padding-bottom: 9px;
+margin: 40px 0px 20px;
+border-bottom: 1px solid #EEE;
+margin-left: 0;
+margin-right: 0;
+text-align: center;}
         </style>
         
         <script src="https://code.jquery.com/jquery.js"></script>
@@ -40,20 +47,33 @@
     <body>
     
         <div class="container">
-            <div class="input-group" style="width:300px;text-align:center;margin:0 auto;" id="nickWrap">
+        
+            <div class="page-header">
+                <h1> LocalBox <br><small> A toolbox for local broadcast</small></h1>
+            </div>
+            
+            <div class="input-group" style="width:300px;text-align:center;margin:0 auto;margin-top:10px" id="nickWrap">
                 <input id="nickname" class="form-control input-lg" type="text" placeholder="Enter your username">
                 <span class="input-group-btn">
                     <button class="btn btn-lg btn-primary" type="submit" id="setNick">OK</button>
                 </span>
             </div>
-            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;">
+            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;margin-top:10px">
                 <button type="button" class="close" id="closeAlert">×</button>
                 That username is already taken. Try again.
             </div>
+            
             <div id="contentWrap" class="row" style="height: 70%;">
-                <div class="col-md-2"></div>
-                <div id="chatWrap"  class="col-md-6">
-                    <div class="panel panel-success">
+                <div class="col-md-3" style="float: left; width: 50%;">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Connected Users
+                        </div>
+                        <div id="users" class="panel-body"></div>
+                </div>
+                </div>
+                <div id="chatWrap"  class="col-md-3" style="float: right; width: 50%;">
+                    <div class="panel panel-info">
                         <div class="panel-heading">Chat</div>
 						<div class="panel-body">
 	                        <div id="chat"></div>
@@ -68,7 +88,7 @@
 						</div>	
                     </div>
                 </div>
-            </div>
+             </div>
             
         </div>
         <script src="/socket.io/socket.io.js"></script>
