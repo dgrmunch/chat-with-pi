@@ -2,13 +2,13 @@
     <head>
         <title>LocalBox</title>
         
-        <script src="https://code.jquery.com/jquery.js"></script>
 		<link rel="stylesheet" href="/styles/app.css" type="text/css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 		
+		<script src="https://code.jquery.com/jquery.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-        
+		
     </head>
     <body>
     
@@ -29,9 +29,9 @@
                 That username is already taken. Try again.
             </div>
             
-            <div id="contentWrap" class="row left-block">
+            <div id="contentWrap" class="row">
                 <div class="col-md-3 left-block" >
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             Connected Users
                         </div>
@@ -39,12 +39,12 @@
                 </div>
                 </div>
                 <div id="chatWrap"  class="col-md-3 right-block">
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">Chat</div>
 						<div class="panel-body">
 	                        <div id="chat"></div>
 		                    <div id="message-box">
-		                        <form id="send-message" class="input-group" style="text-align:center;margin:0 auto;">
+		                        <form id="send-message" class="input-group">
 		                        <input id="message" class="form-control input-lg" type="text">
 		                        <span class="input-group-btn">
 		                            <button class="btn btn-lg btn-primary" type="submit">Send</button>
@@ -97,13 +97,14 @@
                });
                
                socket.on('new message', function(data) {
-                  $chat.append('<b>'+data.nick+":</b> "+data.msg+"<br/>"); 
+                  $chat.append('<b><img class="avatar-chat" src="http://robohash.org/'+data.nick+'.png">'+data.nick+":</b> "+data.msg+"<br/>"); 
+				  $chat.animate({ scrollTop: $chat[0].scrollHeight}, 1000);
                });
                
                socket.on('usernames', function(data) {
                     var html = '';
                     for (var username in data) {
-                        html += username + '<br/>';
+                        html += '<a href="#" title='+username+'><img class="avatar-users" src="http://robohash.org/'+username+'.png"></a>';
                     }
                     $users.html(html);
                 });
