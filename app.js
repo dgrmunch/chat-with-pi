@@ -2,6 +2,7 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require("socket.io").listen(server),
+	path = require('path')
     nicknames = {};
 
 server.listen(8000);
@@ -34,3 +35,5 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('usernames', nicknames);
     }
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
