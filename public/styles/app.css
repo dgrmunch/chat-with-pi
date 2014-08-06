@@ -1,0 +1,50 @@
+#contentWrap{
+    display: none;
+	height: 70%;
+}
+
+#nickWrap{
+	width: 300px !important;
+	text-align: center !important;
+	margin: 0 auto !important;
+	margin-top:10px
+}
+
+#chat {
+    position: relative !important;
+    width: 100% !important;
+    float: left !important;
+    min-height: 100px !important;
+    height: 80% !important;
+    overflow: auto !important;
+    margin-bottom: 2% !important;
+}
+
+#message-box{
+	float: right !important;
+	width: 100% !important;
+}
+
+.page-header{
+	padding-bottom: 9px !important;
+	margin: 40px 0px 20px !important;
+	border-bottom: 1px solid #EEE !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	text-align: center !important;
+}
+
+#login-error{
+	display:none;
+	margin-top:10px;
+}
+
+.left-block{
+	float: left !important; 
+	width: 50% !important;
+}
+
+.right-block{
+	float: right !important; 
+	width: 50% !important;
+}
