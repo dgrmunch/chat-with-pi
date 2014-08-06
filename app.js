@@ -6,16 +6,21 @@ var express = require('express'),
     nicknames = {};
 
 server.listen(8000);
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/index.html');
 });
+
+
 io.sockets.on('connection', function(socket) {
-    socket.on('send message', function(data) {
+    
+	socket.on('send message', function(data) {
         io.sockets.emit('new message', {msg: data, nick: socket.nickname});
     });
     
     socket.on('new user', function(data, callback) {
-        if (data in nicknames) {
+        if (data in nicknames || data.search(/[^a-zA-Z]+/) !== -1) {
             callback(false);
         } else {
             callback(true);
@@ -35,5 +40,3 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('usernames', nicknames);
     }
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
