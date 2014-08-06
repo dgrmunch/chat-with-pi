@@ -1,53 +1,60 @@
 <html>
     <head>
         <title>LocalBox</title>
-        
 		<link rel="stylesheet" href="/styles/app.css" type="text/css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-		
 		<script src="https://code.jquery.com/jquery.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-		
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/client.js"></script>
     </head>
-    <body>
-    
+    <body> 
         <div class="container">
-        
-            <div class="page-header">
+            <div id="pageHeader" class="page-header">
                 <h1> LocalBox <br><small> A toolbox for local broadcast</small></h1>
             </div>
-            
-            <div class="input-group" id="nickWrap">
-                <input id="nickname" class="form-control input-lg" type="text" placeholder="Enter your username">
-                <span class="input-group-btn">
-                    <button class="btn btn-lg btn-primary" type="submit" id="setNick">OK</button>
-                </span>
+			
+            <div id="usersPanel" class="center-block">
+                <div id="panelInfo" class="panel panel-info">
+                    <div id="users" class="panel-body"></div>
             </div>
-            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error">
-                <button type="button" class="close" id="closeAlert">×</button>
-                That username is already taken. Try again.
             </div>
             
+			<div id="theme-selector" class="dropdown">
+			  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+			    Select a theme
+			    <span class="caret"></span>
+			  </button>
+			  <ul id="dropdown-theme" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="javascript:selectBusiness()">Business</a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="selectRobots()">Robots</a></li>
+			  </ul>
+			</div>
+
+			<div class="input-group" id="nickWrap">
+			    <input id="nickname" class="form-control input-lg left" type="text" placeholder="Enter a nickname">
+			    <span class="input-group-btn">
+			        <button class="btn btn-lg btn-primary" type="submit" id="setNick">OK</button>
+			    </span>
+			</div>
+
+			<div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error">
+			    <button type="button" class="close" id="closeAlert">×</button>
+			     Or you have writen a forbiden character (only a-z allowed) or that username is already taken.
+			</div>
+			
             <div id="contentWrap" class="row">
-                <div class="col-md-3 left-block" >
+                <div id="chatWrap"  class="col-md-3 center-block">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Connected Users
-                        </div>
-                        <div id="users" class="panel-body"></div>
-                </div>
-                </div>
-                <div id="chatWrap"  class="col-md-3 right-block">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Chat</div>
+                        <div class="panel-heading"></div>
 						<div class="panel-body">
 	                        <div id="chat"></div>
 		                    <div id="message-box">
 		                        <form id="send-message" class="input-group">
-		                        <input id="message" class="form-control input-lg" type="text">
+		                        <input id="message" class="form-control" type="text">
 		                        <span class="input-group-btn">
-		                            <button class="btn btn-lg btn-primary" type="submit">Send</button>
+		                            <button class="btn btn-lg btn-primary force-pad" type="submit"><span class="glyphicon glyphicon-send"></span></button>
 		                        </span>
 		                        </form>
 		                    </div>
@@ -55,62 +62,6 @@
                     </div>
                 </div>
              </div>
-            
         </div>
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
-            jQuery(function($) {
-               var socket = io.connect();
-               var $messageForm = $('#send-message');
-               var $messageBox = $('#message');
-               var $chat = $('#chat');
-               var $buttonSend = $('#send');
-               
-               var $nickForm = $('#setNick');
-               var $nickBox = $('#nickname');
-               var $users = $('#users');
-               var $closeAlert = $('#closeAlert');
-               
-               
-               
-               $nickForm.click(function(e) {
-                   e.preventDefault();
-                   socket.emit('new user', $nickBox.val(), function(data) {
-                       if(data) {
-                           $('#nickWrap').hide();
-                           $('#contentWrap').show();
-                       } else {
-                           $("#login-error").show();
-                       }
-                   });
-                   $nickBox.val('');
-               });
-               
-               $closeAlert.click(function(e) {
-                    $("#login-error").hide();
-               });
-               
-               $messageForm.submit(function(e) {
-                   e.preventDefault();
-                   if($messageBox.val()!='') socket.emit('send message', $messageBox.val());
-                   $messageBox.val('');
-               });
-               
-               socket.on('new message', function(data) {
-                  $chat.append('<b><img class="avatar-chat" src="http://robohash.org/'+data.nick+'.png">'+data.nick+":</b> "+data.msg+"<br/>"); 
-				  $chat.animate({ scrollTop: $chat[0].scrollHeight}, 1000);
-               });
-               
-               socket.on('usernames', function(data) {
-                    var html = '';
-                    for (var username in data) {
-                        html += '<a href="#" title='+username+'><img class="avatar-users" src="http://robohash.org/'+username+'.png"></a>';
-                    }
-                    $users.html(html);
-                });
-               
-            });
-            
-        </script>
     </body>
 </html>
