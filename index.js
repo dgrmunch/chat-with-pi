@@ -1,8 +1,10 @@
 var express = require('express'),
     app = express(),
+	sys = require('sys'),
+	exec = require('child_process').exec,
     server = require('http').createServer(app),
     io = require("socket.io").listen(server),
-	path = require('path')
+	path = require('path'),
     nicknames = {};
 
 server.listen(8000);
@@ -35,8 +37,23 @@ io.sockets.on('connection', function(socket) {
         delete nicknames[socket.nickname];
         updateNickNames();
     });
+	
+    socket.on('execute command', function(data, callback) {
+		if(!socket.nickname) return;
+		callback(true);
+  	  	child = exec(data, function(error, stdout, stderr) {
+  	 	 returnCommandResults(data,stdout);
+  	  	});
+    });
     
     function updateNickNames() {
         io.sockets.emit('usernames', nicknames);
     }
+	
+	function returnCommandResults(command,response){
+		var results = {};
+		results['command']=command;
+		results['response']=response;
+		io.sockets.emit('terminal', results);
+	}
 });

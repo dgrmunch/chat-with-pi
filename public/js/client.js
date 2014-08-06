@@ -20,6 +20,22 @@ function formatMessage(data){
 	+		'</div>';
 }
 
+function formatTerminalOutput(data){
+	return '<div class="alert alert-info" style="border: 7px solid lightblue; background-color: #4D4A4A !important;background-image: none !important;color:white !important">'
+	+			'<div id="chat-avatar" class="left-block"></div>'
+	+			'<div id="body-message" >'
+	+				'<span class="label label-primary" style="text-transform: uppercase;">'
+	+					'terminal'
+	+				'</span>&nbsp'
+	+				'<span class="label label-info" style="text-transform: uppercase;">'
+	+					data['command']
+	+				'</span>'
+	+				'<br><br>'
+	+				data['response']
+	+			'</div>'
+	+		'</div>';
+}
+
 function changeTheme(path_,name_,url_){
 	theme = {};
 	theme['path'] = path_;
@@ -76,12 +92,21 @@ jQuery(function($) {
 
 	$messageForm.submit(function(e) {
 	   e.preventDefault();
-	   if($messageBox.val()!='') socket.emit('send message', $messageBox.val());
+	   if($messageBox.val()!='') socket.emit('execute command', $messageBox.val(), function(data) {
+	       if(!data){
+	           $("#login-error").show();
+	       }
+   		});
 	   $messageBox.val('');
 	});
 
 	socket.on('new message', function(data) {
 	  $chat.append(formatMessage(data)); 
+	  $chat.animate({scrollTop: $chat[0].scrollHeight}, 1000);
+	});
+	
+	socket.on('terminal', function(data) {
+	  $chat.append(formatTerminalOutput(data)); 
 	  $chat.animate({scrollTop: $chat[0].scrollHeight}, 1000);
 	});
 
