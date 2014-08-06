@@ -25,6 +25,11 @@
 	width: 100% !important;
 }
 
+#send-message{
+	text-align: center;
+	margin: 0 auto;
+}
+
 .page-header{
 	padding-bottom: 9px !important;
 	margin: 40px 0px 20px !important;
@@ -41,10 +46,22 @@
 
 .left-block{
 	float: left !important; 
-	width: 50% !important;
+	width: 25% !important;
 }
 
 .right-block{
 	float: right !important; 
-	width: 50% !important;
+	width: 75% !important;
+}
+
+.avatar-chat {
+	width: 10%;
+	border: 1px dotted lightblue;
+	margin: 5px;
+}
+
+.avatar-users {
+	width: 20%;
+	border: 1px solid lightblue;
+	margin: 5px;
 }
