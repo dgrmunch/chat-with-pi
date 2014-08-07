@@ -1,15 +1,31 @@
-{
+{ 
   "name": "chat-with-pi",
   "version": "0.1.0",
-  "description": " A collaborative learning tool for new geeks",
+  "description": "Collaborative learning tool for Raspberry pi",
   "main": "index.js",
-  "repository": "https://github.com/dgrmunch/chat-with-pi.git",
-  "authors": {
-	"Diego Gonzalez-Rodriguez <xmunch@xmunch.com>",
+  "scripts": {
+    "start": "node index.js"
   },
   "dependencies": {
-    "express": "~3.2.4",
-    "socket.io": "~0.9.14"
-  }
+    "express": "^4.0.0",
+	"socket.io": "^0.9.14"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgrmunch/chat-with-pi"
+  },
+  "keywords": [
+    "node",
+    "raspberry",
+    "learning"
+  ],
+  "author": "Diego Gonzalez <xmunch@xmunch.com> (http;//www.xmunch.net)",
+  "contributors": [
+    "Mario Perez Esteso <mario@geekytheory.com> (http://geekytheory.com)"
+  ],
+  "license": "MIT"
 }
 
