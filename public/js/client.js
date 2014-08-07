@@ -60,7 +60,7 @@ function selectRobots(){
 }
 
 jQuery(function($) {
-	
+	selectRobots();
 	var socket = io.connect();
 	var $messageForm = $('#send-message');
 	var $messageBox = $('#message');
