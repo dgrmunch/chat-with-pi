@@ -1,4 +1,4 @@
-{ 
+{
   "name": "chat-with-pi",
   "version": "0.1.0",
   "description": "Collaborative learning tool for Raspberry pi",
@@ -7,8 +7,8 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.0.0",
-	"socket.io": "^0.9.14"
+    "express": "3.0.0",
+	"socket.io": "0.9.14"
   },
   "engines": {
     "node": "0.10.x"
@@ -28,4 +28,3 @@
   ],
   "license": "MIT"
 }
-
