@@ -1,7 +1,7 @@
 nodechat
 ========
 
-Chat with Node.js
+Chat with Node.js 
 
 For installing dependencies:
 ~~~~~~~~~~~~~~~~~~~~~

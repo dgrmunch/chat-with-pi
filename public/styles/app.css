@@ -98,7 +98,6 @@ pre{
 
 #usersPanel {
     display: none;
-    margin-top: 10px;
     opacity: 0.7;
 }
 
@@ -114,6 +113,13 @@ pre{
 #login-error{
 	display:none;
 	margin-top:10px;
+}
+
+.panel-info{
+	height: 50px !important;
+	padding-top: 3px !important;
+	float: right !important;
+	position: relative !important;	
 }
 
 .panel-body{
@@ -179,11 +185,24 @@ pre{
 	background-color: white !important;
 }
 
-.avatar-users {
+.avatar-chat-2 {
 	border: 1px solid lightblue;
 	margin: 0.5%;
 	height: 80%;
 	background-color: white !important;
+}
+
+.logo-img{
+	margin-top: 2px;
+	margin-left: 10px;	
+}
+
+.avatar-users{
+	border: 1px solid #ADD8E6;
+	top: 6px;
+	height: 35px;
+	background-color: #FFF !important;
+	position: relative;
 }
 
 .terminal{
