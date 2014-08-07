@@ -70,6 +70,8 @@ jQuery(function($) {
 	var $nickBox = $('#nickname');
 	var $users = $('#users');
 	var $closeAlert = $('#closeAlert');
+	var $cmdBtn = $('#cmd-btn');
+	var $msgBtn = $('#msg-btn');
 
 	$nickForm.click(function(e) {
 	   e.preventDefault();
@@ -90,13 +92,19 @@ jQuery(function($) {
 	    $("#login-error").hide();
 	});
 
-	$messageForm.submit(function(e) {
+	$cmdBtn.click(function(e) {
 	   e.preventDefault();
 	   if($messageBox.val()!='') socket.emit('execute command', $messageBox.val(), function(data) {
 	       if(!data){
 	           $("#login-error").show();
 	       }
    		});
+	   $messageBox.val('');
+	});
+	
+	$msgBtn.click(function(e) {
+	   e.preventDefault();
+	   if($messageBox.val()!='') socket.emit('send message', $messageBox.val());
 	   $messageBox.val('');
 	});
 
