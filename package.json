@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": " A collaborative learning tool for new geeks",
   "main": "index.js",
-  "repository": "https://github.com/dgrmunch/nodechat.git",
+  "repository": "https://github.com/dgrmunch/chat-with-pi.git",
   "authors": {
 	"Diego Gonzalez-Rodriguez <xmunch@xmunch.com>",
   },
