@@ -76,6 +76,10 @@ body{
 	opacity:0.9;
 }
 
+#setNick{
+	width: 100% !important;
+	margin-top: 10px;
+}
 .page-header{
 	padding-bottom: 9px !important;
 	margin: 40px 0px 20px !important;
@@ -125,4 +129,18 @@ body{
 	margin: 0.5%;
 	height: 80%;
 	background-color: white !important;
+}
+
+pre{
+	font-family: monospace !important; 
+	font-size: 12px !important; 
+	color: lightblue !important;
+	padding: 0px !important;
+	margin: 0px !important;
+	line-height: 1.42857;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: black !important;
+	border: 0px !important;
+	border-radius: 0px !important;
 }

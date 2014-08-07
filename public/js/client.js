@@ -21,17 +21,19 @@ function formatMessage(data){
 }
 
 function formatTerminalOutput(data){
-	return '<div class="alert alert-info" style="border: 7px solid lightblue; background-color: #4D4A4A !important;background-image: none !important;color:white !important">'
+	return '<div class="alert alert-warning" style="border: 7px solid gray; background-color: black !important;background-image: none !important;color:white !important">'
 	+			'<div id="chat-avatar" class="left-block"></div>'
 	+			'<div id="body-message" >'
-	+				'<span class="label label-primary" style="text-transform: uppercase;">'
+	+				'<span class="label label-warning" style="text-transform: uppercase;">'
 	+					'terminal'
 	+				'</span>&nbsp'
-	+				'<span class="label label-info" style="text-transform: uppercase;">'
+	+				'<span class="label label-info" style="">'
 	+					data['command']
 	+				'</span>'
 	+				'<br><br>'
-	+				data['response']
+	+				'<pre>'
+	+					data['response']
+	+				'</pre>'	
 	+			'</div>'
 	+		'</div>';
 }
