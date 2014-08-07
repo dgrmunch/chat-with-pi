@@ -4,7 +4,7 @@ function formatMessage(data){
 	return '<div class="alert alert-info">'
 	+			'<div id="chat-avatar" class="left-block"></div>'
 	+			'<div id="body-message" >'
-	+				'<span class="label label-primary" style="text-transform: uppercase;">'
+	+				'<span class="label label-primary uppercase">'
 	+					data.nick
 	+				'</span>'
 	+				'<br><br>'
@@ -21,16 +21,25 @@ function formatMessage(data){
 }
 
 function formatTerminalOutput(data){
-	return '<div class="alert alert-warning" style="border: 7px solid gray; background-color: black !important;background-image: none !important;color:white !important">'
+	return '<div class="alert alert-warning terminal">'
 	+			'<div id="chat-avatar" class="left-block"></div>'
 	+			'<div id="body-message" >'
-	+				'<span class="label label-warning" style="text-transform: uppercase;">'
+	+				'<span class="label label-warning uppercase">'
 	+					'terminal'
 	+				'</span>&nbsp'
-	+				'<span class="label label-info" style="">'
+	+				'<span class="label label-info">'
 	+					data['command']
 	+				'</span>'
 	+				'<br><br>'
+	+				'<span class="terminal-text" style="color:white">'
+	+					'chat-with-pi@localhost:'
+	+				'</span>'
+	+				'<span class="terminal-text" style="color:lightgreen">'
+	+					data['directory']
+	+				'</span>'
+	+				'<span class="terminal-text" style="color:lightblue">'
+	+					'&nbsp'+data['command']
+	+				'</span>'
 	+				'<pre>'
 	+					data['response']
 	+				'</pre>'	
@@ -47,19 +56,25 @@ function changeTheme(path_,name_,url_){
 	$('#theme-selector').hide();
 }
 
-function selectBusiness(){
-	path_ = 'http://www.avatarpro.biz/avatar?s=';
-	name_ = 'Business';
-	url_= 'http://www.avatarpro.biz/';
-	changeTheme(path_,name_,url_);
-}
-
 function selectRobots(){
 	path_ = 'http://robohash.org/';
 	name_ = 'RoboHash';
 	url_ = path_;
 	changeTheme(path_,name_,url_);
 }
+
+function divToImage(){
+	// TODO
+    html2canvas(document.getElementById('chat'), {
+		allowTaint:true,
+		taintTest:false,
+		letterRendering:true,
+	    onrendered: function(canvas) {
+	   	 	document.body.appendChild(canvas);
+	    }
+    });
+}
+
 
 jQuery(function($) {
 	selectRobots();
@@ -74,6 +89,7 @@ jQuery(function($) {
 	var $closeAlert = $('#closeAlert');
 	var $cmdBtn = $('#cmd-btn');
 	var $msgBtn = $('#msg-btn');
+	var $dwlBtn = $('#dwl-btn');
 	
 	$("#sortable").sortable();
 	$("#sortable").disableSelection();
@@ -83,7 +99,7 @@ jQuery(function($) {
 	   socket.emit('new user', $nickBox.val(), function(data) {
 	       if(data) {
 	           $('#nickWrap').hide();
-			   $('#pageHeader').hide();
+			   $('.banner-img').hide();
 			   $('#usersPanel').show();
 	           $('#contentWrap').show();
 	       } else {

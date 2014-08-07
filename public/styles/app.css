@@ -2,14 +2,44 @@ body{
 	background-color: #EDF0F5 !important;
 }
 
+pre{
+	font-family: monospace !important; 
+	font-size: 12px !important; 
+	color: lightblue !important;
+	padding: 0px !important;
+	margin: 0px !important;
+	line-height: 1.42857;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: black !important;
+	border: 0px !important;
+	border-radius: 0px !important;
+}
+
+#sortable {
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 120px;
+}
+
+#sortable li {
+    cursor: pointer;
+    float: left;
+    padding-left: 10px;
+}
+
+#sortable li:hover {
+    cursor: pointer;
+    float: left;
+    padding-left: 3px;
+	border-left: 4px dotted lightblue;
+	margin-left: 3px;
+}
+
 #contentWrap{
     display: none;
 	height: 90%;
-}
-
-.panel-body{
-	padding:10px !important;
-	padding-top:0px !important;
 }
 
 #chatWrap{
@@ -80,6 +110,17 @@ body{
 	width: 100% !important;
 	margin-top: 10px;
 }
+
+#login-error{
+	display:none;
+	margin-top:10px;
+}
+
+.panel-body{
+	padding:10px !important;
+	padding-top:0px !important;
+}
+
 .page-header{
 	padding-bottom: 9px !important;
 	margin: 40px 0px 20px !important;
@@ -89,9 +130,14 @@ body{
 	text-align: center !important;
 }
 
-#login-error{
-	display:none;
-	margin-top:10px;
+.banner-img{
+	    display: block;
+	    margin-right: auto;
+	    margin-left: auto;
+	    margin-bottom: 10px;
+	    float: none !important;
+		width:500px;
+		margin-top: 10% !important;
 }
 
 .force-pad{
@@ -118,6 +164,15 @@ body{
 	float: left;
 }
 
+.terminal-text{
+	font-family: monospace;
+	font-size: 12px;
+}
+
+.uppercase{
+	text-transform: uppercase;
+}
+
 .avatar-chat {
 	border: 1px solid lightblue;
 	height: 70px;
@@ -131,37 +186,9 @@ body{
 	background-color: white !important;
 }
 
-pre{
-	font-family: monospace !important; 
-	font-size: 12px !important; 
-	color: lightblue !important;
-	padding: 0px !important;
-	margin: 0px !important;
-	line-height: 1.42857;
-	word-break: break-all;
-	word-wrap: break-word;
+.terminal{
+	border: 7px solid gray;
 	background-color: black !important;
-	border: 0px !important;
-	border-radius: 0px !important;
-}
-
-#sortable {
-	list-style-type: none; 
-	margin: 0; 
-	padding: 0; 
-	width: 120px;
-}
-
-#sortable li {
-    cursor: pointer;
-    float: left;
-    padding-left: 10px;
-}
-
-#sortable li:hover {
-    cursor: pointer;
-    float: left;
-    padding-left: 3px;
-	border-left: 4px dotted lightblue;
-	margin-left: 3px;
+	background-image: none !important;
+	color:white !important
 }
