@@ -5,6 +5,7 @@ var express = require('express'),
     server = require('http').createServer(app),
     io = require("socket.io").listen(server),
 	path = require('path'),
+	currentDirectory = '',
     nicknames = {};
 
 server.listen(8000);
@@ -37,22 +38,71 @@ io.sockets.on('connection', function(socket) {
         updateNickNames();
     });
 	
-    socket.on('execute command', function(data, callback) {
+    socket.on('execute command', function(dataIn, callback) {
 		if(!socket.nickname) return;
 		callback(true);
-  	  	child = exec(data, function(error, stdout, stderr) {
-  	 	 returnCommandResults(data,stdout);
-  	  	});
+		console.log(socket.nickname + ' is going to execute a command');
+		if(getCurrentDirectory() === ''){
+			console.log('Directory needs to be setted');
+			pwd(executeCommand,dataIn);
+		} else {
+			console.log('Directory already setted');
+			executeCommand(dataIn);
+		}
     });
+	
+	function pwd(funct,data){
+		console.log('pwd() was called');
+		child = exec('pwd', function(error, stdout, stderr) {
+			setCurrentDirectory(stdout);
+			if(typeof funct == 'function'){
+				console.log('And injected function is executed');
+				funct(data);
+			}	
+		});
+	}
+	
+	function executeCommand(dataIn){
+		console.log('exectuteCommand() was called');
+		seq = 'cd '+ getCurrentDirectory() + '\n' + dataIn + '\npwd';
+		console.log('This sequence of commands will be executed:\n' + seq);
+  	  	child = exec(seq, function(error, stdout, stderr) {
+			console.log('With this results:\n'+stdout);
+			dataOut = processStdout(stdout);
+			returnCommandResults(dataIn,dataOut);
+  	  	});
+	}
     
     function updateNickNames() {
         io.sockets.emit('usernames', nicknames);
     }
 	
+	function setCurrentDirectory(dir){
+		console.log('setCurrentDirectory() was called');
+		currentDirectory = dir;
+		console.log('Current dir is ' + currentDirectory);
+	}
+	
+	function getCurrentDirectory(){
+		console.log('getCurrentDirectory() was called');
+		return currentDirectory;
+	}
+	
 	function returnCommandResults(command,response){
+		console.log('returnCommandResults() was called');
 		var results = {};
 		results['command']=command;
 		results['response']=response;
+		results['directory']=currentDirectory;
+		console.log(results);
 		io.sockets.emit('terminal', results);
+	}
+	
+	function processStdout(stdout){
+		console.log('processStdout() was called');
+		var array = stdout.split('\n');
+		setCurrentDirectory(array[array.length - 2]);
+		array.splice(array.length - 2, 1);
+		return array.join('\n');
 	}
 });
