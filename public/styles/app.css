@@ -144,3 +144,24 @@ pre{
 	border: 0px !important;
 	border-radius: 0px !important;
 }
+
+#sortable {
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 120px;
+}
+
+#sortable li {
+    cursor: pointer;
+    float: left;
+    padding-left: 10px;
+}
+
+#sortable li:hover {
+    cursor: pointer;
+    float: left;
+    padding-left: 3px;
+	border-left: 4px dotted lightblue;
+	margin-left: 3px;
+}

@@ -4,8 +4,9 @@
 		<link rel="stylesheet" href="/styles/app.css" type="text/css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="/js/client.js"></script>
     </head>
@@ -42,8 +43,10 @@
 		                        <form id="send-message" class="input-group">
 		                        <input id="message" class="form-control" type="text">
 		                        <span class="input-group-btn">
-		                            <button id="msg-btn" class="btn btn-lg btn-primary force-pad"><span class="glyphicon glyphicon-send"></span></button>
-		                            <button id="cmd-btn" class="btn btn-lg btn-info force-pad"><span class="glyphicon glyphicon-screenshot"></span></button>
+									<ul id="sortable">
+										<li class="ui-state-default"> <button id="msg-btn" class="btn btn-lg btn-primary force-pad"><span class="glyphicon glyphicon-send"></span></button></li>
+										<li class="ui-state-default"> <button id="cmd-btn" class="btn btn-lg btn-info force-pad"><span class="glyphicon glyphicon-screenshot"></span></button></li>
+									</ul>
 		                        </span>
 		                        </form>
 		                    </div>

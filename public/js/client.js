@@ -74,6 +74,9 @@ jQuery(function($) {
 	var $closeAlert = $('#closeAlert');
 	var $cmdBtn = $('#cmd-btn');
 	var $msgBtn = $('#msg-btn');
+	
+	$("#sortable").sortable();
+	$("#sortable").disableSelection();
 
 	$nickForm.click(function(e) {
 	   e.preventDefault();
