@@ -1,12 +1,11 @@
 {
-  "name": "nodechat",
+  "name": "chat-with-pi",
   "version": "0.1.0",
-  "description": "Nodechat",
-  "main": "app.js",
+  "description": " A collaborative learning tool for new geeks",
+  "main": "index.js",
   "repository": "https://github.com/dgrmunch/nodechat.git",
   "authors": {
-	"Diego Gonzalez Rodriguez <xmunch@xmunch.com>",
-	"Mario Pérez Esteso <mario@geekytheory.com>",
+	"Diego Gonzalez-Rodriguez <xmunch@xmunch.com>",
   },
   "dependencies": {
     "express": "~3.2.4",
