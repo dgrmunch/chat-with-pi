@@ -12,6 +12,18 @@ var express = require('express'),
 server.listen(port);
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.get('/color', function(req, res) {
+	console.log("Random color");
+	randomColor = '#' + (function co(lor){   return (lor +=
+  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
+  && (lor.length == 6) ?  lor : co(lor); })('');
+randomColor2 = '#' + (function co(lor){   return (lor +=
+[0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
+&& (lor.length == 6) ?  lor : co(lor); })('');
+	io.sockets.emit('color panel', {color:randomColor,color2:randomColor2});
+});
+
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/index.html');
 });

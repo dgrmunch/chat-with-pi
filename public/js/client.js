@@ -1,4 +1,5 @@
 var theme = {};
+var nickname = "Default";
 
 function formatMessage(data){
 	return '<div class="alert alert-info">'
@@ -75,7 +76,6 @@ function divToImage(){
     });
 }
 
-
 jQuery(function($) {
 	selectRobots();
 	var socket = io.connect();
@@ -87,6 +87,7 @@ jQuery(function($) {
 	var $nickBox = $('#nickname');
 	var $users = $('#users');
 	var $closeAlert = $('#closeAlert');
+	var $colorPanel = $('#colorPanel');
 	var $cmdBtn = $('#cmd-btn');
 	var $msgBtn = $('#msg-btn');
 	var $dwlBtn = $('#dwl-btn');
@@ -106,6 +107,7 @@ jQuery(function($) {
 	           $("#login-error").show();
 	       }
 	   });
+	   nickname = $nickBox.val();
 	   $nickBox.val('');
 	});
 
@@ -129,6 +131,13 @@ jQuery(function($) {
 	   $messageBox.val('');
 	});
 
+	socket.on('color panel', function(data) {
+	  	$colorPanel.delay(3000).show();
+		$("#colorPanel").delay(3000).css("background-color",data['color']);
+		$("#colorPanelName").delay(10000).css("color",data['color2']);
+		$("#colorPanelName").text(nickname);
+	});
+	
 	socket.on('new message', function(data) {
 	  $chat.append(formatMessage(data)); 
 	  $chat.animate({scrollTop: $chat[0].scrollHeight}, 1000);
