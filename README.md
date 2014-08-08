@@ -21,6 +21,10 @@ make install
 cd chat-with-pi
 npm install
 ~~~~~~~~~~~~~~~~~~~~~
+Maybe you also will need to install *zeparser*:
+~~~~~~~~~~~~~~~~~~~~~
+sudo npm install zeparser
+~~~~~~~~~~~~~~~~~~~~~
 * Run the app:
 ~~~~~~~~~~~~~~~~~~~~~
 node index.js
