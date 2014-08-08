@@ -1,7 +1,7 @@
 chat-with-pi
 ========
 
-A user-friendly web service to communicate with a Raspberry pi (send commands, browse directories, play with GPIO...). Oriented to education, 'chat-with-pi' allows collective learning. By using a friendly chat interface, students and professors can share knowledge and practise on a Raspberry pi. Without 'ssh' and in any platform/browser different users can share a real-time updated interface.
+An user-friendly web service to communicate with a Raspberry pi (send commands, browse directories, play with GPIO...). Oriented to education, 'chat-with-pi' allows collective learning. By using a friendly chat interface, students and professors can share knowledge and practise on a Raspberry pi. Without 'ssh' and in any platform/browser different users can share a real-time updated interface.
 
 * Download the latest source of node.js in your Raspberry pi.
 ~~~~~~~~~~~~~~~~~~~~~
