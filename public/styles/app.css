@@ -163,6 +163,16 @@ pre{
 	bottom: 60px;
 }
 
+
+.good-command{
+	color: green;
+}
+
+.bad-command{
+	color: red;
+	text-decoration: line-through;
+}
+
 .center-block{
 	float: none !important; 
 	width: 100% !important;
