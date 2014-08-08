@@ -62,7 +62,7 @@
 
 			<div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error">
 			    <button type="button" class="close" id="closeAlert">×</button>
-			    This username is already taken.
+			    This username is already taken or you have used a character which is not allowed (only A-Z and a-z).
 			</div>
 			
             <div id="contentWrap" class="row">
@@ -76,8 +76,8 @@
 		                        <input id="message" class="form-control" type="text">
 		                        <span class="input-group-btn">
 									<ul id="sortable">
+											<li class="ui-state-default"> <button id="cmd-btn" class="btn btn-lg btn-info force-pad"><span class="glyphicon glyphicon-screenshot"></span></button></li>
 										<li class="ui-state-default"> <button id="msg-btn" class="btn btn-lg btn-primary force-pad"><span class="glyphicon glyphicon-send"></span></button></li>
-										<li class="ui-state-default"> <button id="cmd-btn" class="btn btn-lg btn-info force-pad"><span class="glyphicon glyphicon-screenshot"></span></button></li>
 									</ul>
 		                        </span>
 		                        </form>
