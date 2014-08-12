@@ -13,15 +13,24 @@ server.listen(port);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+function getRandomColor(){
+	return (function co(lor){   return (lor +=
+	  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
+	  && (lor.length == 6) ?  lor : co(lor); })('');	
+}
+
+
 app.get('/color', function(req, res) {
 	console.log("Random color");
-	randomColor = '#' + (function co(lor){   return (lor +=
-  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
-  && (lor.length == 6) ?  lor : co(lor); })('');
-randomColor2 = '#' + (function co(lor){   return (lor +=
-[0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
-&& (lor.length == 6) ?  lor : co(lor); })('');
+	randomColor = '#' + getRandomColor();
+	randomColor2 = '#' + getRandomColor();
 	io.sockets.emit('color panel', {color:randomColor,color2:randomColor2});
+});
+
+
+app.get('/text', function(req, res) {
+	console.log("Random text");
+	io.sockets.emit('text panel',{});
 });
 
 app.get('/', function(req, res) {
@@ -34,7 +43,6 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function(socket) {
-    
 	socket.on('send message', function(data) {
         io.sockets.emit('new message', {msg: data, nick: socket.nickname});
     });

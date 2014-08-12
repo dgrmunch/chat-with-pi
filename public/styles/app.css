@@ -16,6 +16,24 @@ pre{
 	border-radius: 0px !important;
 }
 
+#colorPanel{
+	position:absolute;
+	display:none;
+	background-color:black;
+	z-index:100;
+	width:100%;
+	height:100%;
+}
+
+#colorPanelName{
+	color: white;
+	font-size:300px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	align:center;	
+}
+
 #sortable {
 	list-style-type: none; 
 	margin: 0; 
@@ -154,6 +172,7 @@ pre{
 	
 .left-block{
 	width: 90% !important;
+	word-break: break-all;
 }
 
 .right-block{
@@ -197,24 +216,6 @@ pre{
 	right: 0;
 	border: 0;
 	z-index:99;
-}
-
-#colorPanel{
-	position:absolute;
-	display:none;
-	background-color:black;
-	z-index:100;
-	width:100%;
-	height:100%;
-}
-
-#colorPanelName{
-	color: white;
-	font-size:300px;
-	margin-left:auto;
-	margin-right:auto;
-	text-align:center;
-	align:center;	
 }
 
 .avatar-chat {

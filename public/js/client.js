@@ -1,84 +1,16 @@
-var theme = {};
-var nickname = "Default";
-
-function formatMessage(data){
-	return '<div class="alert alert-info">'
-	+			'<div id="chat-avatar" class="left-block"></div>'
-	+			'<div id="body-message" >'
-	+				'<span class="label label-primary uppercase">'
-	+					data.nick
-	+				'</span>'
-	+				'<br><br>'
-	+				'<div class="left-block">'
-	+					data.msg
-	+				'</div>'
-	+				'<div class="right-block">'
-	+					'<a href="#" title="' + data.nick + '">'
-	+						'<img class="avatar-chat" src="' + theme['path'] + data.nick +'.png">'
-	+					'</a>'
-	+				'</div>'
-	+			'</div>'
-	+		'</div>';
-}
-
-function formatTerminalOutput(data){
-	return '<div class="alert alert-warning terminal">'
-	+			'<div id="chat-avatar" class="left-block"></div>'
-	+			'<div id="body-message" >'
-	+				'<span class="label label-warning uppercase">'
-	+					'terminal'
-	+				'</span>&nbsp'
-	+				'<span class="label label-info">'
-	+					data['command']
-	+				'</span>'
-	+				'<br><br>'
-	+				'<span class="terminal-text" style="color:white">'
-	+					'chat-with-pi@localhost:'
-	+				'</span>'
-	+				'<span class="terminal-text" style="color:lightgreen">'
-	+					data['directory']
-	+				'</span>'
-	+				'<span class="terminal-text" style="color:lightblue">'
-	+					'&nbsp'+data['command']
-	+				'</span>'
-	+				'<pre>'
-	+					data['response']
-	+				'</pre>'	
-	+			'</div>'
-	+		'</div>';
-}
-
-function changeTheme(path_,name_,url_){
-	theme = {};
-	theme['path'] = path_;
-	theme['name'] = name_;
-	theme['url'] = url_;
-	$('#nickWrap').show();
-	$('#theme-selector').hide();
-}
-
-function selectRobots(){
-	path_ = 'http://robohash.org/';
-	name_ = 'RoboHash';
-	url_ = path_;
-	changeTheme(path_,name_,url_);
-}
-
-function divToImage(){
-	// TODO
-    html2canvas(document.getElementById('chat'), {
-		allowTaint:true,
-		taintTest:false,
-		letterRendering:true,
-	    onrendered: function(canvas) {
-	   	 	document.body.appendChild(canvas);
-	    }
-    });
-}
-
 jQuery(function($) {
-	selectRobots();
+	
+	var delay= 3000;
+	var delayMax = 10000;
+	var scrollOpt = 1000;
+	var zero = 0;
+	
+	var empty = '';
+	var color = 'color';
+	var colorName = 'color2';
+	var background = 'background-color';
 	var socket = io.connect();
+	
 	var $messageForm = $('#send-message');
 	var $messageBox = $('#message');
 	var $chat = $('#chat');
@@ -88,70 +20,97 @@ jQuery(function($) {
 	var $users = $('#users');
 	var $closeAlert = $('#closeAlert');
 	var $colorPanel = $('#colorPanel');
+	var $colorPanelName = $('#colorPanelName');
 	var $cmdBtn = $('#cmd-btn');
 	var $msgBtn = $('#msg-btn');
 	var $dwlBtn = $('#dwl-btn');
+	var $sortable = $('#sortable');
+	var $nickWrap = $('#nickWrap');
+	var $usersPanel = $('#usersPanel');
+	var $contentWrap = $('#contentWrap');
+	var $loginError = $('#login-error');
+	var $bannerImg = $('.banner-img');
 	
-	$("#sortable").sortable();
-	$("#sortable").disableSelection();
+	var newUserAction = 'new user';
+	var executeCommandAction = 'execute command';
+	var sendMessageAction = 'send message';
+	var colorPanelAction = 'color panel';
+	var textPanelAction = 'text panel';
+	var newMessageAction = 'new message';
+	var terminalAction = 'terminal';
+	var usernamesAction = 'usernames';
+		
+	$sortable.sortable();
+	$sortable.disableSelection();	
+	loadRobotsAvatars();
+	loadSpecialElements();
 
 	$nickForm.click(function(e) {
 	   e.preventDefault();
-	   socket.emit('new user', $nickBox.val(), function(data) {
+	   socket.emit(newUserAction, $nickBox.val(), function(data) {
 	       if(data) {
-	           $('#nickWrap').hide();
-			   $('.banner-img').hide();
-			   $('#usersPanel').show();
-	           $('#contentWrap').show();
+	           $nickWrap.hide();
+			   $bannerImg.hide();
+			   $usersPanel.show();
+	           $contentWrap.show();
 	       } else {
-	           $("#login-error").show();
+	           $loginError.show();
 	       }
 	   });
-	   nickname = $nickBox.val();
-	   $nickBox.val('');
+	  setNickname($nickBox.val());
+	  $nickBox.val(empty);
 	});
 
 	$closeAlert.click(function(e) {
-	    $("#login-error").hide();
+	    $loginError.hide();
 	});
 
 	$cmdBtn.click(function(e) {
 	   e.preventDefault();
-	   if($messageBox.val()!='') socket.emit('execute command', $messageBox.val(), function(data) {
-	       if(!data){
-	           $("#login-error").show();
-	       }
-   		});
-	   $messageBox.val('');
+	   if($messageBox.val() !== empty) {
+		   socket.emit(executeCommandAction, $messageBox.val(), function(data) {
+	       		if(!data){
+	           	 	$loginError.show();
+	       		}
+   			});
+		}
+	   $messageBox.val(empty);
 	});
 	
 	$msgBtn.click(function(e) {
 	   e.preventDefault();
-	   if($messageBox.val()!='') socket.emit('send message', $messageBox.val());
-	   $messageBox.val('');
+	   if($messageBox.val() !== empty) {
+		   socket.emit(sendMessageAction, $messageBox.val());
+	   }
+	   $messageBox.val(empty);
 	});
 
-	socket.on('color panel', function(data) {
-	  	$colorPanel.delay(3000).show();
-		$("#colorPanel").delay(3000).css("background-color",data['color']);
-		$("#colorPanelName").delay(10000).css("color",data['color2']);
-		$("#colorPanelName").text(nickname);
+	socket.on(colorPanelAction, function(data) {
+	  	$('#colorPanel').delay(delay).show();
+		$('#colorPanel').delay(delay).css(background,data[color]);
+		$('#colorPanelName').delay(delayMax).css(color,data[colorName]);
+		$('#colorPanelName').text(getNickname());
 	});
 	
-	socket.on('new message', function(data) {
+	
+	socket.on(textPanelAction, function(data) {
+		$('#colorPanelName').text(getRandomText());
+	});
+	
+	socket.on(newMessageAction, function(data) {
 	  $chat.append(formatMessage(data)); 
-	  $chat.animate({scrollTop: $chat[0].scrollHeight}, 1000);
+	  $chat.animate({scrollTop: $chat[zero].scrollHeight}, scrollOpt);
 	});
 	
-	socket.on('terminal', function(data) {
+	socket.on(terminalAction, function(data) {
 	  $chat.append(formatTerminalOutput(data)); 
-	  $chat.animate({scrollTop: $chat[0].scrollHeight}, 1000);
+	  $chat.animate({scrollTop: $chat[zero].scrollHeight}, scrollOpt);
 	});
 
-	socket.on('usernames', function(data) {
-	    var html = '';
+	socket.on(usernamesAction, function(data) {
+	    var html = empty;
 	    for (var username in data) {
-	        html += '<a href="#" title='+username+'><img class="avatar-users" src="'+theme['path']+username+'.png"></a>';
+	        html += getAvatar(username);
 	    }
 	    $users.html(html);
 	});
