@@ -31,4 +31,4 @@ PS. This is still an alpha version. More functionality will be added soon.
 
 Enjoy! Help is welcome!
 
-[Diego Gonzalez](http://www.xmunch.net)
+[Diego Gonzalez](http://www.xmunch.com)
